@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Contexts\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
