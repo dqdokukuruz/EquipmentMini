@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="EquipmentMini/EquipmentMini.csproj" />
+  <Project Path="EquipmentMiniWeb/EquipmentMiniWeb.csproj" />
+</Solution>
