@@ -20,5 +20,26 @@ namespace EquipmentMiniWeb.Controllers
             var equipment = await _context.Equipment.ToListAsync();
             return View(equipment);
         }
+
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Equipment equipment)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Equipment.Add(equipment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(equipment);
+        }
+
     }
 }

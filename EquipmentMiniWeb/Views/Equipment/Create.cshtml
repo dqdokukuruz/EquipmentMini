@@ -1,0 +1,44 @@
+﻿@model EquipmentMini.Entities.Equipment
+
+@{
+    ViewData["Title"] = "Добавяне на оборудване";
+}
+
+<h1>Добавяне на оборудване</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Име</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="InventoryNumber" class="form-label">Инвентарен номер</label>
+        <input asp-for="InventoryNumber" class="form-control" />
+        <span asp-validation-for="InventoryNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Category" class="form-label">Категория</label>
+        <input asp-for="Category" class="form-control" />
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Room" class="form-label">Стая</label>
+        <input asp-for="Room" class="form-control" />
+        <span asp-validation-for="Room" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Condition" class="form-label">Състояние</label>
+        <input asp-for="Condition" class="form-control" />
+        <span asp-validation-for="Condition" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Добави</button>
+    <a asp-action="Index" class="btn btn-secondary">Назад</a>
+</form>

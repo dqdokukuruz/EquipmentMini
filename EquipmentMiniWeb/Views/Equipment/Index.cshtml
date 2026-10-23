@@ -1,0 +1,31 @@
+﻿@model IEnumerable<EquipmentMini.Entities.Equipment>
+
+@{
+    ViewData["Title"] = "Оборудване";
+}
+
+<h1>Оборудване</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Име</th>
+            <th>Инвентарен номер</th>
+            <th>Категория</th>
+            <th>Стая</th>
+            <th>Състояние</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.InventoryNumber</td>
+                <td>@item.Category</td>
+                <td>@item.Room</td>
+                <td>@item.Condition</td>
+            </tr>
+        }
+    </tbody>
+</table>
