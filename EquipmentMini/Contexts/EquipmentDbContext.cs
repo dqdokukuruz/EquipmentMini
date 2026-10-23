@@ -1,12 +1,14 @@
 ﻿using EquipmentMini.Entities;
 using Microsoft.EntityFrameworkCore;
-    
+using EquipmentMini.Contexts;
+
 
 namespace EquipmentMini.Contexts
 {
     public class EquipmentDbContext : DbContext
     {
-        public EquipmentDbContext(DbContextOptions options) : base(options)
+        public EquipmentDbContext(DbContextOptions<EquipmentDbContext> options)
+            : base(options)
         {
         }
 
