@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="EquipmentMini.Services/EquipmentMini.Services.csproj" Id="7ebbb7a7-305b-4a3e-a693-63400d81a677" />
   <Project Path="EquipmentMini/EquipmentMini.csproj" />
   <Project Path="EquipmentMiniWeb/EquipmentMiniWeb.csproj" />
 </Solution>
