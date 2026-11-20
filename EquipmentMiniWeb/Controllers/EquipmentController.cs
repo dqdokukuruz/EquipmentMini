@@ -1,40 +1,27 @@
 ﻿
-using EquipmentMini.Contexts;
 using EquipmentMini.Entities;
+using EquipmentMini.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EquipmentMiniWeb.Controllers
 {
     public class EquipmentController : Controller
     {
-        private readonly EquipmentDbContext _context;
+        private readonly IEquipmentService _equipmentService;
 
-        public EquipmentController(EquipmentDbContext context)
+        public EquipmentController(IEquipmentService equipmentService)
         {
-            _context = context;
+            _equipmentService = equipmentService;
         }
-
 
         public async Task<IActionResult> Index(string searchString)
         {
-            var equipment = _context.Equipment.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(searchString))
-            {
-                equipment = equipment.Where(e =>
-                    e.Name.Contains(searchString) ||
-                    e.InventoryNumber.Contains(searchString) ||
-                    e.Category.Contains(searchString) ||
-                    e.Room.Contains(searchString));
-            }
+            var equipment = await _equipmentService.GetAllAsync(searchString);
 
             ViewData["CurrentFilter"] = searchString;
 
-            return View(await equipment.ToListAsync());
+            return View(equipment);
         }
-
-
 
         public IActionResult Create()
         {
@@ -47,14 +34,12 @@ namespace EquipmentMiniWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Equipment.Add(equipment);
-                await _context.SaveChangesAsync();
+                await _equipmentService.CreateAsync(equipment);
                 return RedirectToAction(nameof(Index));
             }
 
             return View(equipment);
         }
-
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -63,7 +48,7 @@ namespace EquipmentMiniWeb.Controllers
                 return NotFound();
             }
 
-            var equipment = await _context.Equipment.FindAsync(id);
+            var equipment = await _equipmentService.GetByIdAsync(id.Value);
 
             if (equipment == null)
             {
@@ -84,14 +69,12 @@ namespace EquipmentMiniWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Update(equipment);
-                await _context.SaveChangesAsync();
+                await _equipmentService.UpdateAsync(equipment);
                 return RedirectToAction(nameof(Index));
             }
 
             return View(equipment);
         }
-
 
         public async Task<IActionResult> Delete(int? id)
         {
@@ -100,8 +83,7 @@ namespace EquipmentMiniWeb.Controllers
                 return NotFound();
             }
 
-            var equipment = await _context.Equipment
-                .FirstOrDefaultAsync(e => e.Id == id);
+            var equipment = await _equipmentService.GetByIdAsync(id.Value);
 
             if (equipment == null)
             {
@@ -115,17 +97,9 @@ namespace EquipmentMiniWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var equipment = await _context.Equipment.FindAsync(id);
-
-            if (equipment != null)
-            {
-                _context.Equipment.Remove(equipment);
-                await _context.SaveChangesAsync();
-            }
+            await _equipmentService.DeleteAsync(id);
 
             return RedirectToAction(nameof(Index));
         }
-
-
     }
 }
