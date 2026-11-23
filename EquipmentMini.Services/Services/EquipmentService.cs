@@ -29,8 +29,9 @@ namespace EquipmentMini.Services.Services
                 equipment = equipment.Where(e =>
                     e.Name.Contains(searchString) ||
                     e.InventoryNumber.Contains(searchString) ||
-                    e.Category.Contains(searchString) ||
-                    e.Room.Contains(searchString));
+                    e.Category.Name.Contains(searchString) ||
+                    e.Room.Name.Contains(searchString) ||
+                    e.Condition.Name.Contains(searchString));
             }
 
             return await EntityFrameworkQueryableExtensions.ToListAsync(equipment);

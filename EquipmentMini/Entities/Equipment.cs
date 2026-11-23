@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 using System.ComponentModel.DataAnnotations;
 
 namespace EquipmentMini.Entities
@@ -17,10 +15,13 @@ namespace EquipmentMini.Entities
         [StringLength(30)]
         public string InventoryNumber { get; set; } = string.Empty;
 
-        public string Category { get; set; } = string.Empty;
+        public int CategoryId { get; set; }
+        public Category Category { get; set; } = null!;
 
-        public string Room { get; set; } = string.Empty;
+        public int RoomId { get; set; }
+        public Room Room { get; set; } = null!;
 
-        public string Condition { get; set; } = string.Empty;
+        public int ConditionId { get; set; }
+        public Condition Condition { get; set; } = null!;
     }
 }

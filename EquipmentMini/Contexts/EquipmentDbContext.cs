@@ -1,7 +1,6 @@
-﻿using EquipmentMini.Entities;
+﻿
+using EquipmentMini.Entities;
 using Microsoft.EntityFrameworkCore;
-using EquipmentMini.Contexts;
-
 
 namespace EquipmentMini.Contexts
 {
@@ -13,6 +12,9 @@ namespace EquipmentMini.Contexts
         }
 
         public DbSet<Equipment> Equipment => Set<Equipment>();
+        public DbSet<Category> Categories => Set<Category>();
+        public DbSet<Room> Rooms => Set<Room>();
+        public DbSet<Condition> Conditions => Set<Condition>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,15 +32,22 @@ namespace EquipmentMini.Contexts
                     .IsRequired()
                     .HasMaxLength(30);
 
-                entity.HasIndex(e => e.InventoryNumber).IsUnique();
+                entity.HasIndex(e => e.InventoryNumber)
+                    .IsUnique();
 
-                entity.Property(e => e.Category)
+                entity.HasOne(e => e.Category)
+                    .WithMany(c => c.Equipment)
+                    .HasForeignKey(e => e.CategoryId)
                     .IsRequired();
 
-                entity.Property(e => e.Room)
+                entity.HasOne(e => e.Room)
+                    .WithMany(r => r.Equipment)
+                    .HasForeignKey(e => e.RoomId)
                     .IsRequired();
 
-                entity.Property(e => e.Condition)
+                entity.HasOne(e => e.Condition)
+                    .WithMany(c => c.Equipment)
+                    .HasForeignKey(e => e.ConditionId)
                     .IsRequired();
             });
         }
