@@ -121,19 +121,19 @@ namespace EquipmentMini.Migrations
                     b.HasOne("EquipmentMini.Entities.Category", "Category")
                         .WithMany("Equipment")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("EquipmentMini.Entities.Condition", "Condition")
                         .WithMany("Equipment")
                         .HasForeignKey("ConditionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("EquipmentMini.Entities.Room", "Room")
                         .WithMany("Equipment")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");

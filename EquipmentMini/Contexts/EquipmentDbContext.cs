@@ -38,17 +38,20 @@ namespace EquipmentMini.Contexts
                 entity.HasOne(e => e.Category)
                     .WithMany(c => c.Equipment)
                     .HasForeignKey(e => e.CategoryId)
-                    .IsRequired();
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(e => e.Room)
                     .WithMany(r => r.Equipment)
                     .HasForeignKey(e => e.RoomId)
-                    .IsRequired();
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(e => e.Condition)
                     .WithMany(c => c.Equipment)
                     .HasForeignKey(e => e.ConditionId)
-                    .IsRequired();
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
